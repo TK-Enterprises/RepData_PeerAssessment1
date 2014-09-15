@@ -54,6 +54,15 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <h1 class="title">Reproducible Research: Peer Assessment 1</h1>
 </div>
 
+<div id="TOC">
+<ul>
+<li><a href="#loading-and-preprocessing-the-data">Loading and preprocessing the data</a></li>
+<li><a href="#what-is-mean-total-number-of-steps-taken-per-day">What is mean total number of steps taken per day?</a></li>
+<li><a href="#what-is-the-average-daily-activity-pattern">What is the average daily activity pattern?</a></li>
+<li><a href="#imputing-missing-values">Imputing missing values</a></li>
+<li><a href="#are-there-differences-in-activity-patterns-between-weekdays-and-weekends">Are there differences in activity patterns between weekdays and weekends?</a></li>
+</ul>
+</div>
 
 <div id="loading-and-preprocessing-the-data" class="section level2">
 <h2>Loading and preprocessing the data</h2>
@@ -86,7 +95,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <p>Calculate the avarage steps per day. Get the sampling interval with maximum number of steps.</p>
 <pre class="r"><code>    avrgDlyStps &lt;-aggregate( data = data, steps ~ interval, FUN = &quot;mean&quot;, na.action = na.omit)
     avrgStpsMaxInt &lt;- avrgDlyStps$interval[which.max(avrgDlyStps$steps)]</code></pre>
-<p>The interval with average maximum number of steps is : <strong><em>835</em></strong> .</p>
+<p>The interval with maximum average number of steps is : <strong><em>835</em></strong> .</p>
 <p>Plot the avarage daily patern.</p>
 <pre class="r"><code>    plot(steps ~ interval, data = avrgDlyStps, type = &quot;l&quot;, lwd = 2,
          xlab = &quot;Interval&quot;,  ylab = &quot;Steps&quot;, 
@@ -96,11 +105,11 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 </div>
 <div id="imputing-missing-values" class="section level2">
 <h2>Imputing missing values</h2>
-<p>Calculate the how many meesing values</p>
+<p>Calculate how many meesing values</p>
 <pre class="r"><code>    msngValTot = sum(is.na(data))
     msngValStps = sum(is.na(data$steps))</code></pre>
-<p>Total number of missing values in the dataset is <strong><em>2304</em></strong> . Total number or rows with missing values is <strong><em>2304</em></strong>, as well, because all missing values are in the *<strong>steps</strong> column.</p>
-<p>Substitute all NA values with rhe average interval value. Calculate the new <em><strong>mean</strong> and </em><strong>median</strong> Total steps values.</p>
+<p>Total number of missing values in the dataset is <strong><em>2304</em></strong> . Total number or rows with missing values is <strong><em>2304</em></strong>, as well, because all missing values are in the <strong><em>steps</em></strong> column.</p>
+<p>Substitute all NA values with the average interval value. Calculate the new <strong><em>mean</em></strong> and <strong><em>median</em></strong> Total steps values.</p>
 <pre class="r"><code>    dataNoNA &lt;- data
     dataNoNA[is.na(dataNoNA)] &lt;- mean(avrgDlyStps$steps)
     totDlyStpsNoNA &lt;- aggregate( data = dataNoNA, steps ~ date, FUN = &quot;sum&quot;)
@@ -110,7 +119,7 @@ if (window.hljs && document.readyState && document.readyState === "complete") {
 <li>The <strong><em>mean</em></strong> number of steps per day is : <strong>10766</strong>.</li>
 <li>The <strong><em>median</em></strong> number of steps per day is : <strong>10766</strong>.</li>
 </ul>
-<p>Imputing the missing values increased the differense between the mean and median values for total number of steps.</p>
+<p>Imputing the missing values did not change the mean value and made median equal to the mean value for total number of steps.</p>
 <p>And the new distribution is:</p>
 <pre class="r"><code>    hist( totDlyStpsNoNA$steps, col = &quot;gray&quot;, main = &quot;Total Steps per Day&quot;,
           xlab = &quot;Steps&quot;, ylab = &quot;Number of Days&quot;)

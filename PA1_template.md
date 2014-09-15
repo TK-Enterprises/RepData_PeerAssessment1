@@ -44,7 +44,7 @@ Calculate the avarage steps per day. Get the sampling interval with maximum numb
     avrgDlyStps <-aggregate( data = data, steps ~ interval, FUN = "mean", na.action = na.omit)
     avrgStpsMaxInt <- avrgDlyStps$interval[which.max(avrgDlyStps$steps)]
 ```
-The interval with average maximum number of steps is : ***835*** .
+The interval with maximum average number of steps is : ***835*** .
 
 Plot the avarage daily patern.
 
@@ -59,15 +59,15 @@ Plot the avarage daily patern.
 
 ## Imputing missing values
 
-Calculate the how many meesing values
+Calculate how many meesing values
 
 ```r
     msngValTot = sum(is.na(data))
     msngValStps = sum(is.na(data$steps))
 ```
-Total number of missing values in the dataset is ***2304*** . Total number or rows with missing values is ***2304***, as well, because all missing values are in the ***steps** column. 
+Total number of missing values in the dataset is ***2304*** . Total number or rows with missing values is ***2304***, as well, because all missing values are in the ***steps*** column. 
 
-Substitute all NA values with rhe average interval value. Calculate the new ***mean** and ***median** Total steps values. 
+Substitute all NA values with the average interval value. Calculate the new ***mean*** and ***median*** Total steps values. 
 
 ```r
     dataNoNA <- data
@@ -79,7 +79,7 @@ Substitute all NA values with rhe average interval value. Calculate the new ***m
 - The ***mean*** number of steps per day is : **10766**.
 - The ***median*** number of steps per day is : **10766**.
 
-Imputing the missing values increased the differense between the mean and median values for total number of steps.
+Imputing the missing values did not change the mean value and made median equal to the mean value for total number of steps.
 
 And the new distribution is:
 
@@ -112,9 +112,3 @@ Use ***lattice*** package to create a panel plot of the dayly patern for both we
 ```
 
 ![plot of chunk unnamed-chunk-10](./PA1_template_files/figure-html/unnamed-chunk-10.png) 
-
-
-
-
-
-
